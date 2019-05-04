@@ -1,6 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
+/**
+ * This function getting the configuration of application
+ */
 function getConfig() {
 
 	let fileName = process.env.ENVIRONMENT || "development";
@@ -9,12 +12,11 @@ function getConfig() {
 	try {
 
 		if (fs.existsSync(pathFile)) {
-			objJson = fs.readFileSync(pathFile);
+			let objJson = fs.readFileSync(pathFile);
 			return JSON.parse(objJson);
-
 		}
 
-		throw new Error(`Config File not found in src/config folder`);
+		throw new Error("Config File not found in src/config folder");
 
 	} catch (e) {
 		throw new Error(e);

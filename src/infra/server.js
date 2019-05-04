@@ -24,10 +24,12 @@ class Server {
 
 		return new Promise((resolve, reject) => {
 			this.http.listen(port, host, (err) => {
-				if (err) reject(err);
+				if (err) {
+					reject(err);
+				}
 				resolve(`Server ${host} listening on port ${this.config.port}`);
 			});
-		})
+		});
 	}
 }
 

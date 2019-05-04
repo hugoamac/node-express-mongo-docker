@@ -1,6 +1,6 @@
-const Server = require("../src/server");
-const App = require("../src/app");
-const logger = require("../src/logger");
+const logger = require("../src/infra/logger");
+const Server = require("../src/infra/server");
+const App = require("../src/infra/app");
 const config = require("../src/config/");
 
 let appExpress = new App();
@@ -8,10 +8,10 @@ let server = new Server(appExpress.app, config);
 
 server.start().then(message => {
 
-    logger.info(`Message ${message}`);
+	logger.info(`Message ${message}`);
 
 }).catch(error => {
 
-    logger.info(`Error ${error}`);
+	logger.info(`Error ${error}`);
 
 });

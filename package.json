@@ -4,7 +4,7 @@
   "description": "This application provides a RESTFul api for point-of-sale management of beers, leveraging to exemplify the development of applications with NodeJS, Express, Mongo and Docker.",
   "main": "index.js",
   "scripts": {
-    "test": "eslint ./src/ && mocha --opts ./mocha.opts",
+    "test": "eslint --fix ./src/ && mocha --opts ./mocha.opts",
     "start": "node ./app/index.js"
   },
   "repository": {

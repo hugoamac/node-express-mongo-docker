@@ -16,9 +16,9 @@ class Logger {
 			streams: [
 				{
 					level: "info",
-					stream: new PrettyStream(),
-				},
-			],
+					stream: new PrettyStream()
+				}
+			]
 		});
 
 	}
