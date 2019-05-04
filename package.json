@@ -1,0 +1,19 @@
+{
+  "name": "brewerymapapp",
+  "version": "1.0.0",
+  "description": "This application provides a RESTFul api for point-of-sale management of beers, leveraging to exemplify the development of applications with NodeJS, Express, Mongo and Docker.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugoamac/node-express-mongo-docker.git"
+  },
+  "author": "Hugo <hugoamac@live.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hugoamac/node-express-mongo-docker/issues"
+  },
+  "homepage": "https://github.com/hugoamac/node-express-mongo-docker#readme"
+}

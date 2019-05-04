@@ -1,5 +1,3 @@
 # NodeJS + Express + Mongo + Docker
 
-This project represents a mini-application using nodejs, express, mongo and docker.
-
-The application basically is an api that will represent the administration of points of sale of beers.
+This application provides a RESTFul api for point-of-sale management of beers, leveraging to exemplify the development of applications with NodeJS, Express, Mongo and Docker.
