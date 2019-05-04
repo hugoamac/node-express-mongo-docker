@@ -4,7 +4,8 @@
   "description": "This application provides a RESTFul api for point-of-sale management of beers, leveraging to exemplify the development of applications with NodeJS, Express, Mongo and Docker.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint ./src/ && mocha --opts ./mocha.opts",
+    "start": "node ./app/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,25 @@
   "bugs": {
     "url": "https://github.com/hugoamac/node-express-mongo-docker/issues"
   },
-  "homepage": "https://github.com/hugoamac/node-express-mongo-docker#readme"
+  "homepage": "https://github.com/hugoamac/node-express-mongo-docker#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bunyan": "^1.8.12",
+    "bunyan-pretty-stream": "^1.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.5"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^9.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^6.1.4",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.3.0",
+    "sinon-express-mock": "^2.2.0"
+  }
 }
