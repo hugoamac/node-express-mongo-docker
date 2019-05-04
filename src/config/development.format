@@ -1,0 +1,11 @@
+// Replace this file with the options below
+{
+	"server": {
+		"host": "",// put your hostname
+		"port": 0 // put your port
+	},
+	"database": {
+		"host": "", // put your hostname of mongo database
+		"port": 0 // put your port of mongo database
+	}
+}
