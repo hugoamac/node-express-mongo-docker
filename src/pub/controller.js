@@ -23,16 +23,15 @@ class PubController {
 	async create(req, res, next) {
 
 		const data = req.body;
-		let result = null;
 		let response = null;
 
 		try {
 
-			result = await this.model.create(data);
+			const result = await this.model.create(data);
 			response = {
 				httpStatus: values.HTTP_STATUS.OK,
 				responseCode: values.RESPONSE.PUB_CREATED,
-				data: result
+				pdv: result
 			};
 
 			return res.status(values.HTTP_STATUS.OK).json(response);
@@ -59,19 +58,26 @@ class PubController {
 	async findBydId(req, res, next) {
 
 		const id = req.params.id;
-		let result = null;
-		let response = null;
+
+		let response = {
+			httpStatus: values.HTTP_STATUS.BAD_REQUEST,
+			responseCode: values.RESPONSE.INVALID_PARAM
+		};
+
+		if (!id) {
+			return res.status(values.HTTP_STATUS.BAD_REQUEST).json(response);
+		}
 
 		try {
-			result = await this.model.findOne({ id });
 
+			let result = await this.model.findOne({ id });
 
 			if (result !== null) {
 
 				response = {
 					httpStatus: values.HTTP_STATUS.OK,
 					responseCode: values.RESPONSE.OK,
-					data: result
+					pdv: result
 				};
 
 			} else {
@@ -79,7 +85,7 @@ class PubController {
 				response = {
 					httpStatus: values.HTTP_STATUS.NOT_FOUND,
 					responseCode: values.RESPONSE.PUB_NOT_FOUND,
-					data: null
+					pdv: null
 				};
 			}
 
@@ -95,6 +101,71 @@ class PubController {
 
 			return res.status(values.HTTP_STATUS.INTERNAL_ERROR).json(response);
 		}
+	}
+
+	/**
+	 * This method provides the rule for getting pub by longitude and latitude
+	 * @param {Object - request Express} req 
+	 * @param {Object - response Express} res 
+	 * @param {Object - next Express} next 
+	 */
+	async findByLongitudeAndLatitude(req, res, next) {
+
+		const { longitude, latitude } = req.body;
+
+		let response = {
+			httpStatus: values.HTTP_STATUS.BAD_REQUEST,
+			responseCode: values.RESPONSE.INVALID_PARAM
+		};
+
+		if (longitude === undefined || latitude === undefined) {
+			return res.status(values.HTTP_STATUS.BAD_REQUEST).json(response);
+		}
+
+		try {
+
+			let result = await this.model.find({
+				coverageArea: {
+					$geoIntersects:
+					{
+						$geometry: {
+							"type": "Point",
+							"coordinates": [longitude, latitude]
+						}
+					}
+				}
+			});
+
+			if (result.length > 0) {
+
+				response = {
+					httpStatus: values.HTTP_STATUS.OK,
+					responseCode: values.RESPONSE.OK,
+					pdvs: result
+				};
+
+			} else {
+
+				response = {
+					httpStatus: values.HTTP_STATUS.NOT_FOUND,
+					responseCode: values.RESPONSE.PUB_NOT_FOUND,
+					pdvs: []
+				};
+			}
+
+			return res.status(response.httpStatus).json(response);
+
+		} catch (e) {
+
+			logger.info(`Error: ${e}`);
+			response = {
+				httpStatus: values.HTTP_STATUS.INTERNAL_ERROR,
+				responseCode: values.RESPONSE.PUB_NOT_FOUND
+			};
+
+			return res.status(values.HTTP_STATUS.INTERNAL_ERROR).json(response);
+		}
+
 	}
 
 }

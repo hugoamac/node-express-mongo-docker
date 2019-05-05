@@ -1,6 +1,6 @@
 module.exports = (db) => {
 
-	let Schema = db.getSchema();
+	const Schema = db.getSchema();
 
 	/**
 	 * This represents multipolygon schema

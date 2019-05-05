@@ -15,10 +15,13 @@ class DB {
 		this.host = config.database.host;
 		this.port = config.database.port;
 		this.dbname = config.database.dbname;
-		const uri = `mongodb://${this.host}:${this.port}/${this.dbname}`;
-		this.connection = mongoose.createConnection(uri, {
+
+		this.uri = `mongodb://${this.host}:${this.port}/${this.dbname}`;
+
+		this.connection = mongoose.createConnection(this.uri, {
 			useNewUrlParser: true,
-			useCreateIndex: true
+			useCreateIndex: true,
+			useFindAndModify: false
 		});
 
 		autoIncrement.initialize(this.connection);
