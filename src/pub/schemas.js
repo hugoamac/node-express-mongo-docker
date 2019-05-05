@@ -36,10 +36,7 @@ module.exports = (db) => {
 	 * This represents pub schema
 	 */
 	const PubSchema = new Schema({
-		id: {
-			type: Number,
-			index: true
-		},
+
 		tradingName: {
 			type: String,
 			required: true
@@ -64,6 +61,13 @@ module.exports = (db) => {
 		}
 
 	}, { collection: "pubs", versionKey: false });
+
+	PubSchema.plugin(db.getAutoIncrementPlugin(), {
+		model: "Pub",
+		field: "id",
+		startAt: 1,
+		incrementBy: 1
+	});
 
 	return {
 		MultiPolygonSchema,

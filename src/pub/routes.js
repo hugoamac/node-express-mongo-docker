@@ -12,5 +12,11 @@ module.exports = (db) => {
 
 	});
 
+	router.get("/:id", async (req, res, next) => {
+
+		return await pubController.findBydId(req, res, next);
+
+	});
+
 	return router;
 };

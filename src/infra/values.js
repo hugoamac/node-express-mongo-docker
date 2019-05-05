@@ -1,0 +1,18 @@
+module.exports = {
+
+	RESPONSE: {
+
+		OK: 7900,
+		PUB_NOT_FOUND: 7901,
+		PUB_CREATED: 7902,
+		PUB_NOT_CREATED: 7903
+	},
+
+	HTTP_STATUS: {
+
+		OK: 200,
+		CREATED: 201,
+		NOT_FOUND: 404,
+		INTERNAL_ERROR: 500
+	}
+};

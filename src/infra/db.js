@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const autoIncrement = require("mongoose-autoincrement-model");
 const config = require("../config");
 
 /**
@@ -20,6 +21,8 @@ class DB {
 			useCreateIndex: true
 		});
 
+		autoIncrement.initialize(this.connection);
+
 	}
 
 	/**
@@ -35,6 +38,13 @@ class DB {
 	getSchema() {
 
 		return mongoose.Schema;
+	}
+
+	/**
+	 * This method is wrapper to autoincrement plugin
+	 */
+	getAutoIncrementPlugin() {
+		return autoIncrement.plugin;
 	}
 
 }
