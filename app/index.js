@@ -1,6 +1,6 @@
 const logger = require("../src/infra/logger");
 const Server = require("../src/infra/server");
-const App = require("../src/infra/app");
+const App = require("../src/app");
 const config = require("../src/config/");
 
 let appExpress = new App();

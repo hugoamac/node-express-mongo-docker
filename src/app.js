@@ -1,5 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const DB = require("./infra/db");
+
+const db = new DB();
+const PubRoutes = require("./pub/routes")(db);
 
 /**
  * This class provides the wrapper to application express
@@ -34,6 +38,8 @@ class App {
 
 			res.json("Express Application");
 		});
+
+		this.app.use("/api/pub", PubRoutes);
 
 	}
 

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "eslint --fix ./src/ && mocha --opts ./mocha.opts",
-    "start": "node ./app/index.js"
+    "start": "nodemon ./app/index.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "mocha": "^6.1.4",
+    "nodemon": "^1.19.0",
     "sinon": "^7.3.2",
     "sinon-chai": "^3.3.0",
     "sinon-express-mock": "^2.2.0"
