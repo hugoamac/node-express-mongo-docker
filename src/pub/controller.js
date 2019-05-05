@@ -41,7 +41,7 @@ class PubController {
 			logger.info(`Error: ${e}`);
 			response = {
 				httpStatus: values.HTTP_STATUS.INTERNAL_ERROR,
-				responseCode: values.RESPONSE.PUB_NOT_CREATED,
+				responseCode: values.RESPONSE.PUB_NOT_CREATED
 			};
 
 			return res.status(values.HTTP_STATUS.INTERNAL_ERROR).json(response);
