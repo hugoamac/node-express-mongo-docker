@@ -28,6 +28,7 @@ class PubController {
 		try {
 
 			const result = await this.model.create(data);
+
 			response = {
 				httpStatus: values.HTTP_STATUS.OK,
 				responseCode: values.RESPONSE.PUB_CREATED,
