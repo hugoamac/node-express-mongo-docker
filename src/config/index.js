@@ -6,7 +6,7 @@ const path = require("path");
  */
 function getConfig() {
 
-	let fileName = process.env.ENVIRONMENT || "development";
+	let fileName = process.env.NODE_ENV || "development";
 	let pathFile = path.resolve(path.join(__dirname, "/", fileName + ".json"));
 
 	try {

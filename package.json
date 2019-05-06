@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "eslint --fix ./src/ && mocha --opts ./mocha.opts",
-    "start": "nodemon ./app/index.js"
+    "start": "node ./app/index.js"
   },
   "repository": {
     "type": "git",

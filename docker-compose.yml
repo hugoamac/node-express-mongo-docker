@@ -1,0 +1,22 @@
+version: "3"
+
+volumes:
+  data_mongo:
+services:
+  db:
+    image: mongo
+    restart: always
+    ports:
+     - "27018:27017"
+    volumes:
+      - "data_mongo:/data/db"
+  web:
+    build: .
+    command: npm start
+    ports:
+     - "8080:8080"
+    volumes:
+      - ".:/usr/www"
+      - /usr/www/node_modules
+    links:
+      - db 
