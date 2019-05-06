@@ -188,7 +188,7 @@ describe("PubController", () => {
 
 		});
 
-		it("Expected status result to equal 500 when the pub is not created", async () => {
+		it("Expected status result is equal to 500 when a problem occurs", async () => {
 
 			const create = sinon.stub(Pub, "create");
 			create.withArgs(body).rejects();
@@ -224,7 +224,7 @@ describe("PubController", () => {
 
 		it("Expected status result to equal 200 when pub is found", async () => {
 
-			const params = { id: 1 };
+			const params = { "id": 1 };
 
 			const expectedResultFind = {
 				success: "ok"
@@ -254,7 +254,7 @@ describe("PubController", () => {
 
 		it("Expected status result to equal 404 when pub is not found", async () => {
 
-			const params = { id: 1 };
+			const params = { "id": 1 };
 
 			const expectedResultFind = null;
 
@@ -275,9 +275,9 @@ describe("PubController", () => {
 
 		});
 
-		it("The expected status result is equal to 500 when a problem occurs", async () => {
+		it("Expected status result is equal to 500 when a problem occurs", async () => {
 
-			const params = { id: 1 };
+			const params = { "id": 1 };
 
 			const findOne = sinon.stub(Pub, "findOne");
 			findOne.withArgs(params).rejects();
@@ -293,6 +293,150 @@ describe("PubController", () => {
 			expect(response.status).to.be.calledWith(values.HTTP_STATUS.INTERNAL_ERROR);
 
 			findOne.restore();
+
+		});
+
+	});
+
+	describe("~> findByLongitudeAndLatitude()", () => {
+
+		it("Expected status result is equal to 400 when longitude or latitude is not found", async () => {
+
+			const body = {
+				"longitude": -43.36556
+			};
+
+			const req = mockReq({ body });
+			const res = mockRes();
+
+			const pubController = new PubController(Pub);
+			const result = await pubController.findByLongitudeAndLatitude(req, res);
+
+			expect(result.status).to.be.calledWith(values.HTTP_STATUS.BAD_REQUEST);
+
+		});
+
+		it("Expected status result is equal to 200 when pub is found", async () => {
+
+			const body = {
+				"longitude": -43.36556,
+				"latitude": -22.99669
+			};
+
+			const expectedResultFind = [
+				{
+					"success": "ok"
+				}
+			];
+
+			const findParams = {
+				coverageArea: {
+					$geoIntersects:
+					{
+						$geometry: {
+							"type": "Point",
+							"coordinates": [body.longitude, body.latitude]
+						}
+					}
+				}
+			};
+
+			const find = sinon.stub(Pub, "find");
+
+			find.withArgs(findParams).returns(expectedResultFind);
+
+			const req = mockReq({ body });
+			const res = mockRes();
+
+			const pubController = new PubController(Pub);
+			const result = await pubController.findByLongitudeAndLatitude(req, res);
+
+			sinon.assert.calledWith(find, findParams);
+
+			expect(result.status).to.be.calledWith(values.HTTP_STATUS.OK);
+			expect(result.json).to.be.calledWith({
+				httpStatus: values.HTTP_STATUS.OK,
+				responseCode: values.RESPONSE.OK,
+				pdvs: expectedResultFind
+			});
+
+			find.restore();
+
+		});
+
+		it("Expected status result is equal to 404 when pub is not found", async () => {
+
+			const body = {
+				"longitude": -43.36556,
+				"latitude": -22.99669
+			};
+
+			const expectedResultFind = [];
+
+			const findParams = {
+				coverageArea: {
+					$geoIntersects:
+					{
+						$geometry: {
+							"type": "Point",
+							"coordinates": [body.longitude, body.latitude]
+						}
+					}
+				}
+			};
+
+			const find = sinon.stub(Pub, "find");
+
+			find.withArgs(findParams).returns(expectedResultFind);
+
+			const req = mockReq({ body });
+			const res = mockRes();
+
+			const pubController = new PubController(Pub);
+			const result = await pubController.findByLongitudeAndLatitude(req, res);
+
+			sinon.assert.calledWith(find, findParams);
+
+			expect(result.status).to.be.calledWith(values.HTTP_STATUS.NOT_FOUND);
+
+			find.restore();
+
+		});
+
+		it("Expected status result is equal to 500 when a problem occurs", async () => {
+
+			const body = {
+				"longitude": -43.36556,
+				"latitude": -22.99669
+			};
+
+			const findParams = {
+				coverageArea: {
+					$geoIntersects:
+					{
+						$geometry: {
+							"type": "Point",
+							"coordinates": [body.longitude, body.latitude]
+						}
+					}
+				}
+			};
+
+			const find = sinon.stub(Pub, "find");
+
+			find.withArgs(findParams).rejects();
+
+			const req = mockReq({ body });
+			const res = mockRes();
+
+			const pubController = new PubController(Pub);
+			const result = await pubController.findByLongitudeAndLatitude(req, res);
+
+			sinon.assert.calledWith(find, findParams);
+
+			expect(result.status).to.be.calledWith(values.HTTP_STATUS.INTERNAL_ERROR);
+
+			find.restore();
 
 		});
 
