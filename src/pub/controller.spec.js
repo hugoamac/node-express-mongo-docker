@@ -207,4 +207,94 @@ describe("PubController", () => {
 		});
 
 	});
+
+	describe("~> findBydId()", () => {
+
+		it("Expected status result to equal 400 when param id is not found", async () => {
+
+			const req = mockReq();
+			const res = mockRes();
+
+			const pubController = new PubController(Pub);
+			const response = await pubController.findBydId(req, res);
+
+			expect(response.status).to.be.calledWith(values.HTTP_STATUS.BAD_REQUEST);
+
+		});
+
+		it("Expected status result to equal 200 when pub is found", async () => {
+
+			const params = { id: 1 };
+
+			const expectedResultFind = {
+				success: "ok"
+			};
+
+			const findOne = sinon.stub(Pub, "findOne");
+			findOne.withArgs(params).returns(expectedResultFind);
+
+			const req = mockReq({ params });
+			const res = mockRes();
+
+			const pubController = new PubController(Pub);
+			const response = await pubController.findBydId(req, res);
+
+			sinon.assert.calledWith(findOne, params);
+
+			expect(response.status).to.be.calledWith(values.HTTP_STATUS.OK);
+			expect(response.json).to.be.calledWith({
+				httpStatus: values.HTTP_STATUS.OK,
+				responseCode: values.RESPONSE.OK,
+				pdv: expectedResultFind
+			});
+
+			findOne.restore();
+
+		});
+
+		it("Expected status result to equal 404 when pub is not found", async () => {
+
+			const params = { id: 1 };
+
+			const expectedResultFind = null;
+
+			const findOne = sinon.stub(Pub, "findOne");
+			findOne.withArgs(params).returns(expectedResultFind);
+
+			const req = mockReq({ params });
+			const res = mockRes();
+
+			const pubController = new PubController(Pub);
+			const response = await pubController.findBydId(req, res);
+
+			sinon.assert.calledWith(findOne, params);
+
+			expect(response.status).to.be.calledWith(values.HTTP_STATUS.NOT_FOUND);
+
+			findOne.restore();
+
+		});
+
+		it("The expected status result is equal to 500 when a problem occurs", async () => {
+
+			const params = { id: 1 };
+
+			const findOne = sinon.stub(Pub, "findOne");
+			findOne.withArgs(params).rejects();
+
+			const req = mockReq({ params });
+			const res = mockRes();
+
+			const pubController = new PubController(Pub);
+			const response = await pubController.findBydId(req, res);
+
+			sinon.assert.calledWith(findOne, params);
+
+			expect(response.status).to.be.calledWith(values.HTTP_STATUS.INTERNAL_ERROR);
+
+			findOne.restore();
+
+		});
+
+	});
 });
