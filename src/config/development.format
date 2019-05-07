@@ -1,4 +1,4 @@
-// Replace this file with the options below
+//Replace the extension of this file with json, with the options below:
 {
 	"server": {
 		"host": "",// put your hostname
@@ -7,6 +7,6 @@
 	"database": {
 		"host": "", // put your hostname of mongo database
 		"port": 0, // put your port of mongo database
-		"dbname": "beers" // put your dbname name
+		"dbname": "beers" 
 	}
 }

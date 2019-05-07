@@ -1,0 +1,12 @@
+//Replace the extension of this file with json, with the options below to run in container docker.
+{
+	"server": {
+		"host": "0.0.0.0",
+		"port": 8080
+	},
+	"database": {
+		"host": "db",
+		"port": 27017,
+		"dbname": "beers"
+	}
+}
