@@ -232,4 +232,4 @@ http://yourdockerip:8080/
 License
 ----
 
-**Free Software, Hell Yeah!**
+**Free Software Yeah!**
