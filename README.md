@@ -232,7 +232,4 @@ http://yourdockerip:8080/
 License
 ----
 
-MIT
-
-
 **Free Software, Hell Yeah!**
